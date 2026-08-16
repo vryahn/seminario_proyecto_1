@@ -4,40 +4,243 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Seminario de Proyecto I — Entregas</title>
+<title>Seminario de Proyecto I — Bryan Rodríguez Abarca</title>
+<meta name="description" content="Entregas del Seminario de Proyecto I, Maestría en Ciencia de Datos e Información, INFOTEC 2026-2.">
+<link rel="icon" href="infotec.png">
 <style>
-  :root { color-scheme: light dark; }
-  body {
-    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem;
-    background: #FAFAF7; color: #1A1416;
+  :root{
+    --ink:#1A1416;
+    --plum:#681830;
+    --gold:#B89058;
+    --gold-deep:#8C6A38;
+    --paper:#FAFAF7;
+    --rule:#B8A89A;
+    --muted:#7A6F73;
+
+    --bg:var(--paper);
+    --surface:#FFFFFF;
+    --text:var(--ink);
+    --text-dim:var(--muted);
+    --border:rgba(184,168,154,.55);
+    --accent:var(--plum);
+    --accent-soft:rgba(104,24,48,.08);
+    --shadow:0 1px 2px rgba(26,20,22,.05), 0 8px 24px -12px rgba(26,20,22,.18);
+    --shadow-lift:0 2px 4px rgba(26,20,22,.06), 0 18px 40px -18px rgba(26,20,22,.28);
+
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
   }
-  h1 { font-size: 1.35rem; margin-bottom: .2rem; color: #681830; }
-  p.sub { margin-top: 0; color: #7A6F73; }
-  ul { list-style: none; padding: 0; }
-  li { border-top: 1px solid #B8A89A; padding: .85rem 0; }
-  a { color: #681830; }
-  small { color: #7A6F73; }
-  @media (prefers-color-scheme: dark) {
-    body { background: #1A1416; color: #FAFAF7; }
-    h1, a { color: #B89058; }
-    li { border-top-color: #7A6F73; }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#141013;
+      --surface:#1D181B;
+      --text:#F4F1EE;
+      --text-dim:#A99DA1;
+      --border:rgba(184,144,88,.22);
+      --accent:#D9A567;
+      --accent-soft:rgba(217,165,103,.12);
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+      --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 18px 40px -18px rgba(0,0,0,.75);
+    }
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:46rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) 1.25rem 4rem}
+
+  /* ---------- Encabezado ---------- */
+  .lockup{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:#FFFFFF;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:.7rem .95rem;
+    box-shadow:var(--shadow);
+  }
+  .lockup img{display:block;width:74px;height:auto}
+
+  .eyebrow{
+    margin:1.5rem 0 0;
+    font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--text-dim);
+  }
+  h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(2rem,6vw,2.9rem);
+    line-height:1.12;
+    letter-spacing:-.015em;
+    margin:.45rem 0 0;
+  }
+  .byline{margin:.85rem 0 0;color:var(--text-dim);font-size:1rem}
+  .byline strong{color:var(--text);font-weight:600}
+
+  .divider{
+    height:2px;border:0;margin:2.5rem 0 2rem;
+    background:linear-gradient(90deg,var(--accent) 0%,var(--gold) 42%,transparent 100%);
+    opacity:.85;border-radius:2px;
+  }
+
+  /* ---------- Lista de entregas ---------- */
+  h2{
+    font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--text-dim);margin:0 0 1rem;
+  }
+  ul{list-style:none;margin:0;padding:0;display:grid;gap:.85rem}
+
+  .card{
+    position:relative;display:block;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:1.15rem 1.25rem;
+    text-decoration:none;color:inherit;
+    box-shadow:var(--shadow);
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .card::before{
+    content:"";position:absolute;inset:0 auto 0 0;width:3px;
+    border-radius:14px 0 0 14px;
+    background:linear-gradient(180deg,var(--accent),var(--gold));
+    opacity:0;transition:opacity .18s ease;
+  }
+  a.card:hover,a.card:focus-visible{
+    transform:translateY(-2px);
+    box-shadow:var(--shadow-lift);
+    border-color:var(--accent);
+  }
+  a.card:hover::before,a.card:focus-visible::before{opacity:1}
+  a.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  .card.pending{opacity:.62;box-shadow:none;background:transparent;border-style:dashed}
+
+  .row{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+  .tag{
+    font-family:var(--mono);font-size:.78rem;font-weight:600;
+    color:var(--accent);letter-spacing:.02em;
+  }
+  .title{font-family:var(--serif);font-size:1.16rem;font-weight:600;letter-spacing:-.01em}
+  .meta{
+    margin:.5rem 0 0;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;
+    color:var(--text-dim);font-size:.86rem;
+  }
+  .dot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.5}
+  .pill{
+    margin-left:auto;flex-shrink:0;
+    font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    padding:.24rem .6rem;border-radius:999px;
+    background:var(--accent-soft);color:var(--accent);
+    border:1px solid var(--border);
+  }
+  .card.pending .pill{background:transparent;color:var(--text-dim)}
+  .go{color:var(--accent);font-weight:600;font-size:.86rem}
+  .go span{display:inline-block;transition:transform .18s ease}
+  a.card:hover .go span{transform:translateX(3px)}
+
+  footer{
+    margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);
+    color:var(--text-dim);font-size:.84rem;
+  }
+  footer p{margin:.4rem 0}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    a.card:hover{transform:none}
   }
 </style>
 </head>
 <body>
-<h1>Seminario de Proyecto I</h1>
-<p class="sub">Maestría en Ciencia de Datos e Información · INFOTEC · 2026-2<br>
-Bryan Rodríguez Abarca</p>
+<main class="wrap">
 
-<ul>
-  <li>
-    <a href="1A_Bryan_Rodriguez.pdf">1A. Tema, problema y planteamiento</a><br>
-    <small>Unidad 1 · PDF</small>
-  </li>
-</ul>
+  <header>
+    <div class="lockup"><img src="infotec.png" alt="INFOTEC" width="168" height="147"></div>
+    <p class="eyebrow">Maestría en Ciencia de Datos e Información · 2026-2</p>
+    <h1>Seminario de Proyecto I</h1>
+    <p class="byline"><strong>Bryan Rodríguez Abarca</strong><br>
+    Entregas del curso, publicadas para la coevaluación entre compañeros.</p>
+  </header>
 
-<p><small>Repositorio público con las entregas de la materia, para la
-coevaluación entre compañeros.</small></p>
+  <hr class="divider">
+
+  <h2>Entregas</h2>
+  <ul>
+
+    <li>
+      <a class="card" href="1A_Bryan_Rodriguez.pdf">
+        <div class="row">
+          <span class="tag">1A</span>
+          <span class="title">Tema, problema y planteamiento</span>
+          <span class="pill">Publicada</span>
+        </div>
+        <p class="meta">
+          <span>Unidad 1</span><span class="dot"></span>
+          <span>PDF · 13 páginas</span><span class="dot"></span>
+          <span class="go">Abrir <span>&rarr;</span></span>
+        </p>
+      </a>
+    </li>
+
+    <li>
+      <div class="card pending">
+        <div class="row">
+          <span class="tag">2A</span>
+          <span class="title">Fuentes de información y formato APA</span>
+          <span class="pill">Programada</span>
+        </div>
+        <p class="meta"><span>Unidad 2</span><span class="dot"></span><span>6 de septiembre</span></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="card pending">
+        <div class="row">
+          <span class="tag">3A</span>
+          <span class="title">Constructo de investigación</span>
+          <span class="pill">Programada</span>
+        </div>
+        <p class="meta"><span>Unidad 3</span><span class="dot"></span><span>4 de octubre</span></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="card pending">
+        <div class="row">
+          <span class="tag">4A</span>
+          <span class="title">Evidencia de creación de la base de datos</span>
+          <span class="pill">Programada</span>
+        </div>
+        <p class="meta"><span>Unidad 4</span><span class="dot"></span><span>18 de octubre</span></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="card pending">
+        <div class="row">
+          <span class="tag">4B</span>
+          <span class="title">Presentación final del protocolo</span>
+          <span class="pill">Programada</span>
+        </div>
+        <p class="meta"><span>Unidad 4</span><span class="dot"></span><span>22 de noviembre</span></p>
+      </div>
+    </li>
+
+  </ul>
+
+  <footer>
+    <p>Sitio personal de entregas académicas. El logotipo de INFOTEC identifica a la
+    institución donde se cursa el programa; este sitio no es un canal oficial del centro.</p>
+  </footer>
+
+</main>
 </body>
 </html>
