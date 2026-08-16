@@ -81,6 +81,7 @@
     line-height:1.12;
     letter-spacing:-.015em;
     margin:.45rem 0 0;
+    text-wrap:balance;
   }
   .byline{margin:.85rem 0 0;color:var(--text-dim);font-size:1rem}
   .byline strong{color:var(--text);font-weight:600}
@@ -153,6 +154,13 @@
   }
   footer p{margin:.4rem 0}
 
+  /* En pantallas angostas: clave y estado en la primera linea, titulo debajo */
+  @media (max-width:560px){
+    .row{align-items:center}
+    .title{flex-basis:100%;order:2;margin-top:.15rem}
+    .pill{order:1}
+  }
+
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important}
     a.card:hover{transform:none}
@@ -165,7 +173,7 @@
   <header>
     <div class="lockup"><img src="infotec.png" alt="INFOTEC" width="168" height="147"></div>
     <p class="eyebrow">Maestría en Ciencia de Datos e Información · 2026-2</p>
-    <h1>Seminario de Proyecto I</h1>
+    <h1>Seminario de Proyecto&nbsp;I</h1>
     <p class="byline"><strong>Bryan Rodríguez Abarca</strong><br>
     Entregas del curso, publicadas para la coevaluación entre compañeros.</p>
   </header>
