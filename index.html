@@ -128,7 +128,7 @@ padding:.28rem .7rem;background:var(--surface);white-space:nowrap;
 transition:color .18s ease,border-color .18s ease,background .18s ease}
 nav.saltos a:hover{border-color:var(--accent);color:var(--accent)}
 nav.saltos a.activo{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-body.solo-quiz nav.saltos a.fuera{opacity:.45}
+nav.saltos a.fuera{opacity:.45}
 .hero{display:block;margin:0 0 2rem;padding:0 0 1.9rem;position:relative}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;
 background:var(--hair);opacity:.85}
@@ -147,8 +147,12 @@ border:1px solid var(--border);color:var(--text-dim)}
 .pill.urgente b{color:var(--mal)}
 .pill.ok{background:var(--accent-soft);color:var(--accent)}
 .pill.ok b{color:var(--accent)}
-.rutas{display:grid;grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr));gap:.75rem;
-margin:1.6rem 0 0}
+ol.hitos{list-style:none;display:flex;flex-wrap:wrap;gap:.75rem;margin:1.6rem 0 0;padding:0}
+ol.hitos li{flex:1 1 13.5rem;margin:0;display:flex}
+ol.hitos li>.ruta{flex:1}
+ol.hitos .av{display:block;font-size:.72rem;color:var(--text-dim);margin-top:.4rem}
+ol.hitos li.urgente .cuenta{color:var(--mal)}
+ol.hitos li.ok .cuenta{color:var(--accent)}
 .ruta{position:relative;overflow:hidden;text-align:left;font:inherit;color:inherit;cursor:pointer;
 border:1px solid var(--border);background:var(--surface);border-radius:var(--r);
 padding:.95rem 1.05rem;box-shadow:var(--shadow);
@@ -190,12 +194,21 @@ place-items:center;font-family:var(--serif);font-size:.95rem;font-weight:600;
 background:var(--accent-soft);color:var(--accent);border:1px solid var(--border)}
 ol.sesiones .dur{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
 ol.sesiones .det{display:block;font-size:.82rem;color:var(--text-dim);line-height:1.45}
+ol.sesiones li.fuera{opacity:.5}
+h3.plan-hito{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.1em;
+text-transform:uppercase;color:var(--text-dim);margin:1.5rem 0 .6rem;scroll-margin-top:7rem}
+h3.plan-hito:first-of-type{margin-top:0}
+h3.plan-hito small{font-size:.9em;font-weight:600;color:var(--mal);text-transform:none;
+letter-spacing:.02em}
 
 section.bloque{position:relative;background:var(--surface);border:1px solid var(--border);
 border-radius:var(--r);padding:1.4rem 1.4rem 1.7rem;margin:0 0 1rem;
 box-shadow:var(--shadow);scroll-margin-top:7rem;transition:opacity .25s,filter .25s}
-body.solo-quiz section.bloque.fuera{opacity:.45;filter:saturate(.4)}
-body.solo-quiz section.bloque.fuera:hover{opacity:.95;filter:none}
+section.bloque.fuera{opacity:.45;filter:saturate(.4)}
+section.bloque.fuera:hover{opacity:.95;filter:none}
+.sec{transition:opacity .25s,filter .25s}
+.sec.fuera{opacity:.45;filter:saturate(.4)}
+.sec.fuera:hover{opacity:.95;filter:none}
 .cab{display:flex;gap:.95rem;align-items:flex-start;border-bottom:1px solid var(--border);
 padding-bottom:.95rem;margin-bottom:1.15rem}
 .cab .bn{flex:none;width:2.6rem;height:2.6rem;border-radius:999px;background:var(--accent-soft);
@@ -243,6 +256,18 @@ border:1px solid var(--border);box-shadow:var(--shadow)}
 padding:2.1rem .95rem .95rem;font:.8rem/1.55 var(--mono)}
 .caja::before{content:attr(data-lang);position:absolute;top:0;left:0;z-index:1;
 font:700 .6rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:.6rem .85rem}
+.pred-caja{margin:1.3rem 0}
+.pred-caja.hecha{border-left:3px solid var(--ok);border-radius:0 12px 12px 0;
+padding-left:.85rem}
+.pred-lab{display:block;font-size:.82rem;color:var(--text-dim)}
+.pred-mia,#prog-json{display:block;width:100%;box-sizing:border-box;margin:.35rem 0 .6rem;
+padding:.6rem .8rem;font:.88rem/1.5 var(--sans);color:var(--text);background:var(--surface);
+border:1px solid var(--border-2);border-radius:12px;resize:vertical}
+.pred-caja>details.pred{margin:0}
+a.traza{display:block;text-align:right;text-decoration:none;font:600 .68rem var(--sans);
+letter-spacing:.04em;padding:.1rem .95rem .55rem;color:#D9A567}
+a.traza:hover{text-decoration:underline}
+.estado .frase{flex-basis:100%;width:100%;margin:.5rem 0 0;font-size:.9rem}
 details.pred{margin:1.3rem 0}
 details.pred>summary{cursor:pointer;list-style:none;font:600 .8rem var(--sans);
 color:#8FBF9F;background:#1A1416;border:1px solid #2B2226;border-radius:12px;padding:.7rem .95rem}
