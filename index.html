@@ -1,254 +1,588 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Seminario de Proyecto I — Bryan Rodríguez Abarca</title>
-<meta name="description" content="Entregas del Seminario de Proyecto I, Maestría en Ciencia de Datos e Información, INFOTEC 2026-2.">
-<link rel="icon" href="infotec.png">
-<style>
-  :root{
-    --ink:#1A1416;
-    --plum:#681830;
-    --gold:#B89058;
-    --gold-deep:#8C6A38;
-    --paper:#FAFAF7;
-    --rule:#B8A89A;
-    --muted:#7A6F73;
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKgAAACTCAMAAAAtKKLoAAAA/1BMVEX///9TEzOkil5TEzNTEzNTEzNTEzNTEzNTEzNTEzOkil6kil6kil6kil6kil6kil6kil4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH5R2+AAAAQHRSTlMA/f4PL27PkrFSiXbODVAwrAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK8ZcdAAABdxJREFUeNrtnOuagygMhqkhHDzf/9VuO1YLkghOd6K7D9/PWvE14UyiUlVVVVVVVf9bgfZof4Rew10pNTrzCGQc6hvaEt2DkPH3wvQk5YKKN/I5j/mSvYvT7SOje5DiI68beB/co0SX91TaFHE+rm77/lEoc//qeQfQYnteDHpgT2NuBMrY8zm+wzI9QQp0aud2km3vlCGdD/shArRtXpoHwf4zP/+AFHThbJpeDtTkR58UdGpWdVKcyfButcqD9htoM11UQX2mdpjYoE8Nl1RQr0pAxxBUxPm7iYgBdR5UwqS6iDMFHSLQWbrFm5IKYqLeSag9+cKpZgo69CFoL2tQrcpB43b/17VUly6HCFA1CzZ8WzorokAHQZOa0lUbBaq6EHSU8zycBVViPZQtXgbToK2U703xKpgGHYV8Hw3zTp0HjXzfCvX2+jegrUwlteX7HwzoKDM4ufKlJQM6yLSmE5t0DGg4z/+7iQmc2KPjQGeJZg/lbYkFbSWGe31mL9HS79RdDTp0bRc1DjBkh9tJdKQHoHP65HXTPG514qCG4Nx3jWjSHZRrLdpy1U4nTe7SxjSe6HJmCVCue2pPuLMX70f9r9w5yCyZDT0ynQAdZcZ6R09HT4C2MrMnm59kduVVtBeaOMMvQCeh1R3TmspBO6ktCLqSloP2Uvtk9KKpGHQS2yajl6HFoL3QInS/3axPgo6CO6RImbQUVHLPGajt0ULQ2KCjkjxjghOg8T5uo0QPb0w5aLw5+sdNKT3/1sWgfSN9fpOegRaATjvOSTqkwJWB7uqnxDHTblZqi0DHHafQqS3sZyYZ0GHec45KSceTQB507PecrZIKgDDxeuQIdErMKRkBsZJibmRKrSl1WB9t1+DhWD9MLYXZTMLxg/4TkxMdyszd+FTXzg2tUV2ntinXlZxnQC/lPAF6LWe8tjxQP13LuZ/BsZyDulpjCWenbqD2v2BOalp8T3MuhyJH1uwGdR9NnFHnUd1ME1FT+3ZSN9QwTN1zlO/7pu/7uR2nQd1ctwesqqqqqrqt0GKaM/tO62UC19e8358/pb+vCbYaPaswCTcqz6Yc799f0RRRmIIPNussEDm1dNR4mHa5hGdgUWbjPl2TSzddzmOA2Faiw7A880BMo/P1Eahm8reQy0dZQB2f9+XgMFsVuLRLTFIgCEck963pB94kWbAuPCnGTFanoQ0DtHMhZ1AwzLM0ka3rgpNin0ntc4y1DZMNyuWNro0iMRswaTO4PRyj93Be62dO//6AbvO7fV3XW6r/xo8/97nAbBoXva8v8vvyMC4PPqnk+nPhAwr7g/itRsb2dkC3r62L0EkLftuODk7al7e9ABKnsBg8UKe3hI5yzHGOTRH8btcfqDMLyx0ReMWAOqI0+2HXDKcmngf7TpYo2nMh3ZYO+9xAgXwPs1Hgg3Dfp1yyOsABqOOiOw1t6A3UkyC4mSZsdYHe5SLpPuRBIXBEVJ5m4mi351vSE3p9RGBwG53cHTnKZkF1EuLtmVBvF48jlq7ZOijYxz0c7UGMXpsA1ZsDfXxkiUzV3YEiDeoDj0TdPsARqMmBmjT6wzIx6WWgoUUxGtr016AYn1jivwYajNCoOFCbc/3np7i83St+A/qcktpghkw3JlPYmPzPCPguD4ie7RtQqgBHdhb6oB81jOWAyUf4GtRTA4XLd/jIJUg4emT5GhSIrAC7X28QoMBlSGg6hfdrUGWTSYTbT7nJPgy5HG1DRvp/D7pND51eVn8mmU/Rna2J7iPWZdEHo8w5UDiMejfOOSq2mL45vs8565OV2/uC3hyH8ZokeZENVBV/YsOlpUDuPsetMf36WhsoA7GCMklMBKkhmjhk77PcxxvWIWsF5drKG9QVf6YIqdgOyH/UyitmvfwmwcU7ngsZXSYlR2l2GJbsNBmFQlVwb/I7L6urn894EjrjNMvwsqixkPky2c+3aYyzZDnWMB83eN+XtkAML9RdwqqqqqqqqqqqqqoC/QMqWzjU0N4bfAAAAABJRU5ErkJggg==">
+<title>Seminario de Proyecto I · MCDI · INFOTEC</title>
+<style>:root{
+--ink:#1A1416;
+--plum:#681830;
+--gold:#B89058;
+--gold-deep:#8C6A38;
+--paper:#FAFAF7;
+--rule:#B8A89A;
+--muted:#7A6F73;
 
-    --bg:var(--paper);
-    --surface:#FFFFFF;
-    --text:var(--ink);
-    --text-dim:var(--muted);
-    --border:rgba(184,168,154,.55);
-    --accent:var(--plum);
-    --accent-soft:rgba(104,24,48,.08);
-    --shadow:0 1px 2px rgba(26,20,22,.05), 0 8px 24px -12px rgba(26,20,22,.18);
-    --shadow-lift:0 2px 4px rgba(26,20,22,.06), 0 18px 40px -18px rgba(26,20,22,.28);
+--bg:var(--paper);
+--surface:#FFFFFF;
+--text:var(--ink);
+--text-dim:var(--muted);
+--border:rgba(184,168,154,.55);
+--accent:var(--plum);
+--accent-soft:rgba(104,24,48,.08);
+--shadow:0 1px 2px rgba(26,20,22,.05), 0 8px 24px -12px rgba(26,20,22,.18);
+--shadow-lift:0 2px 4px rgba(26,20,22,.06), 0 18px 40px -18px rgba(26,20,22,.28);
 
-    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-  }
-  @media (prefers-color-scheme:dark){
-    :root{
-      --bg:#141013;
-      --surface:#1D181B;
-      --text:#F4F1EE;
-      --text-dim:#A99DA1;
-      --border:rgba(184,144,88,.22);
-      --accent:#D9A567;
-      --accent-soft:rgba(217,165,103,.12);
-      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
-      --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 18px 40px -18px rgba(0,0,0,.75);
-    }
-  }
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
 
-  *,*::before,*::after{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    font-size:16px;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:46rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) 1.25rem 4rem}
+--surface-2:#F4F1EB;
+--surface-3:#EBE5DC;
+--border-2:rgba(184,168,154,.95);
+--on-accent:#FFFFFF;
+--ok:#15803D;--ok-soft:rgba(21,128,61,.09);
+--mal:#B42318;--mal-soft:rgba(180,35,24,.09);
+--glass:rgba(250,250,247,.88);
+--shadow-edge:rgba(26,20,22,.22);
+--hair:linear-gradient(90deg,var(--accent) 0%,var(--gold) 42%,transparent 100%);
+--r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--bg:#141013;
+--surface:#1D181B;
+--text:#F4F1EE;
+--text-dim:#A99DA1;
+--border:rgba(184,144,88,.22);
+--accent:#D9A567;
+--accent-soft:rgba(217,165,103,.12);
+--shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+--shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 18px 40px -18px rgba(0,0,0,.75);
 
-  /* ---------- Encabezado ---------- */
-  .lockup{
-    display:inline-flex;align-items:center;justify-content:center;
-    background:#FFFFFF;
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:.7rem .95rem;
-    box-shadow:var(--shadow);
-  }
-  .lockup img{display:block;width:74px;height:auto}
+--surface-2:#241E22;
+--surface-3:#2E262C;
+--border-2:rgba(184,144,88,.40);
+--on-accent:#1A1416;
+--ok:#7FD0A4;--ok-soft:rgba(127,208,164,.13);
+--mal:#FF8A80;--mal-soft:rgba(255,138,128,.13);
+--glass:rgba(20,16,19,.88);
+--shadow-edge:rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+--bg:#141013;
+--surface:#1D181B;
+--text:#F4F1EE;
+--text-dim:#A99DA1;
+--border:rgba(184,144,88,.22);
+--accent:#D9A567;
+--accent-soft:rgba(217,165,103,.12);
+--shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+--shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 18px 40px -18px rgba(0,0,0,.75);
 
-  .eyebrow{
-    margin:1.5rem 0 0;
-    font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--text-dim);
-  }
-  h1{
-    font-family:var(--serif);
-    font-weight:600;
-    font-size:clamp(2rem,6vw,2.9rem);
-    line-height:1.12;
-    letter-spacing:-.015em;
-    margin:.45rem 0 0;
-    text-wrap:balance;
-  }
-  .byline{margin:.85rem 0 0;color:var(--text-dim);font-size:1rem}
-  .byline strong{color:var(--text);font-weight:600}
+--surface-2:#241E22;
+--surface-3:#2E262C;
+--border-2:rgba(184,144,88,.40);
+--on-accent:#1A1416;
+--ok:#7FD0A4;--ok-soft:rgba(127,208,164,.13);
+--mal:#FF8A80;--mal-soft:rgba(255,138,128,.13);
+--glass:rgba(20,16,19,.88);
+--shadow-edge:rgba(0,0,0,.6);
+}
 
-  .divider{
-    height:2px;border:0;margin:2.5rem 0 2rem;
-    background:linear-gradient(90deg,var(--accent) 0%,var(--gold) 42%,transparent 100%);
-    opacity:.85;border-radius:2px;
-  }
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);
+font:17px/1.62 var(--sans);-webkit-font-smoothing:antialiased;
+overflow-wrap:break-word;overflow-x:hidden}
+.wrap{max-width:46rem;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.85rem,5.4vw,2.6rem);
+line-height:1.14;letter-spacing:-.015em;margin:.3rem 0 0;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:600;font-size:1.42rem;line-height:1.22;
+letter-spacing:-.012em;margin:0 0 .3rem}
+h3{font-family:var(--serif);font-weight:600;font-size:1.16rem;letter-spacing:-.01em;
+margin:2rem 0 .5rem;scroll-margin-top:7rem}
+h4{font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+color:var(--gold-deep);margin:1.7rem 0 .45rem}
+h5,h6{font-size:.93rem;font-weight:700;color:var(--text-dim);margin:1.3rem 0 .3rem}
+p{margin:.75rem 0}
+a{color:var(--accent);text-underline-offset:2px}
+a:hover{color:var(--gold-deep)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.kicker{margin:0;font-size:.7rem;font-weight:600;letter-spacing:.14em;
+text-transform:uppercase;color:var(--text-dim)}
+#progreso{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;background:var(--hair);
+transform:scaleX(0);transform-origin:0 50%;transition:transform .08s linear}
+.topbar{position:sticky;top:0;z-index:50;background:var(--glass);
+border-bottom:1px solid var(--border);
+-webkit-backdrop-filter:saturate(180%) blur(14px);backdrop-filter:saturate(180%) blur(14px)}
+.topbar .fila{max-width:46rem;margin:0 auto;padding:.55rem 1.25rem;display:flex;
+align-items:center;gap:.6rem}
+.marca{font-size:.78rem;font-weight:600;letter-spacing:.01em;text-decoration:none;
+color:var(--text-dim);white-space:nowrap;display:inline-flex;gap:.4rem;align-items:center}
+.marca b{font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--text)}
+.acciones{margin-left:auto;display:flex;gap:.4rem;align-items:center}
+.icono{width:2.1rem;height:2.1rem;border-radius:999px;border:1px solid var(--border);
+background:var(--surface);color:var(--text-dim);display:grid;place-items:center;cursor:pointer;
+font-size:.92rem;padding:0;line-height:1;box-shadow:var(--shadow);
+transition:color .18s ease,border-color .18s ease,transform .18s ease}
+.icono:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+nav.saltos{position:relative;max-width:46rem;margin:0 auto;padding:0 1.25rem .5rem;display:flex;
+gap:.35rem;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
+nav.saltos::-webkit-scrollbar{display:none}
+nav.saltos::after{content:"";position:absolute;top:0;right:0;bottom:.5rem;width:2.5rem;
+background:linear-gradient(to right,rgba(0,0,0,0),var(--bg));pointer-events:none}
+nav.saltos a{flex:none;scroll-snap-align:start;font-size:.73rem;font-weight:600;
+text-decoration:none;color:var(--text-dim);border:1px solid var(--border);border-radius:999px;
+padding:.28rem .7rem;background:var(--surface);white-space:nowrap;
+transition:color .18s ease,border-color .18s ease,background .18s ease}
+nav.saltos a:hover{border-color:var(--accent);color:var(--accent)}
+nav.saltos a.activo{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+body.solo-quiz nav.saltos a.fuera{opacity:.45}
+.hero{display:block;margin:0 0 2rem;padding:0 0 1.9rem;position:relative}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;
+background:var(--hair);opacity:.85}
+.hero-top{display:flex;gap:1.15rem;align-items:flex-start;margin-top:1.35rem}
+.unum{flex:none;font-family:var(--serif);font-size:clamp(3rem,11vw,4.4rem);line-height:.82;
+font-weight:600;letter-spacing:-.03em;color:var(--accent)}
+.unum small{display:block;font-family:var(--sans);font-size:.16em;letter-spacing:.2em;
+font-weight:600;text-transform:uppercase;color:var(--text-dim);margin-bottom:.6em}
+.sub{color:var(--text-dim);margin:.85rem 0 0;font-size:1rem}
+.pills{display:flex;flex-wrap:wrap;gap:.45rem;margin:1rem 0 0;align-items:center}
+.pill{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.03em;line-height:1.5;
+padding:.24rem .68rem;border-radius:999px;background:var(--surface);
+border:1px solid var(--border);color:var(--text-dim)}
+.pill b{color:var(--text);font-weight:700}
+.pill.urgente{background:var(--mal-soft);color:var(--mal)}
+.pill.urgente b{color:var(--mal)}
+.pill.ok{background:var(--accent-soft);color:var(--accent)}
+.pill.ok b{color:var(--accent)}
+.rutas{display:grid;grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr));gap:.75rem;
+margin:1.6rem 0 0}
+.ruta{position:relative;overflow:hidden;text-align:left;font:inherit;color:inherit;cursor:pointer;
+border:1px solid var(--border);background:var(--surface);border-radius:var(--r);
+padding:.95rem 1.05rem;box-shadow:var(--shadow);
+transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.ruta::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;border-radius:14px 0 0 14px;
+background:linear-gradient(180deg,var(--accent),var(--gold));opacity:0;transition:opacity .18s ease}
+.ruta .et{font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;font-weight:600;
+color:var(--text-dim)}
+.ruta .t{display:block;font-family:var(--serif);font-size:1.6rem;font-weight:600;
+letter-spacing:-.02em;margin:.15rem 0 .2rem}
+.ruta .d{display:block;font-size:.78rem;color:var(--text-dim);line-height:1.45}
+.ruta:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:var(--accent)}
+.ruta:hover::before{opacity:1}
+.ruta[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);
+box-shadow:var(--shadow-lift)}
+.ruta[aria-pressed="true"]::before{opacity:1}
+.ruta[aria-pressed="true"] .t{color:var(--accent)}
+details.nota,.nota{font-size:.85rem;color:var(--text-dim);background:var(--surface-2);
+border:1px solid var(--border);border-left:2px solid var(--gold);border-radius:0 12px 12px 0;
+padding:.75rem .95rem;margin:1.2rem 0}
+details.nota>summary{cursor:pointer;font-weight:600;color:var(--gold-deep);font-size:.85rem;
+list-style:none}
+details.nota>summary::-webkit-details-marker{display:none}
+details.nota>summary::before{content:"\203A";font-weight:700;display:inline-block;
+margin-right:.5rem;transition:transform .2s}
+details.nota[open]>summary{margin-bottom:.6rem}
+details.nota[open]>summary::before{transform:rotate(90deg)}
+.plan{margin:0 0 2.4rem}
+.plan h2{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:var(--text-dim);margin:0 0 1rem}
+ol.sesiones{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+ol.sesiones li{display:flex;gap:.9rem;align-items:center;background:var(--surface);
+border:1px solid var(--border);border-radius:var(--r);padding:.8rem .95rem;
+box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+ol.sesiones li:hover{transform:translateY(-2px);border-color:var(--accent);
+box-shadow:var(--shadow-lift)}
+ol.sesiones .n{flex:none;width:2.1rem;height:2.1rem;border-radius:999px;display:grid;
+place-items:center;font-family:var(--serif);font-size:.95rem;font-weight:600;
+background:var(--accent-soft);color:var(--accent);border:1px solid var(--border)}
+ol.sesiones .dur{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
+ol.sesiones .det{display:block;font-size:.82rem;color:var(--text-dim);line-height:1.45}
 
-  /* ---------- Lista de entregas ---------- */
-  h2{
-    font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--text-dim);margin:0 0 1rem;
-  }
-  ul{list-style:none;margin:0;padding:0;display:grid;gap:.85rem}
+section.bloque{position:relative;background:var(--surface);border:1px solid var(--border);
+border-radius:var(--r);padding:1.4rem 1.4rem 1.7rem;margin:0 0 1rem;
+box-shadow:var(--shadow);scroll-margin-top:7rem;transition:opacity .25s,filter .25s}
+body.solo-quiz section.bloque.fuera{opacity:.45;filter:saturate(.4)}
+body.solo-quiz section.bloque.fuera:hover{opacity:.95;filter:none}
+.cab{display:flex;gap:.95rem;align-items:flex-start;border-bottom:1px solid var(--border);
+padding-bottom:.95rem;margin-bottom:1.15rem}
+.cab .bn{flex:none;width:2.6rem;height:2.6rem;border-radius:999px;background:var(--accent-soft);
+border:1px solid var(--border);color:var(--accent);display:grid;place-items:center;
+font-family:var(--serif);font-weight:600;font-size:1.2rem}
+.meta{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center;margin-top:.4rem}
+.chip{display:inline-flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:600;
+letter-spacing:.03em;padding:.22rem .62rem;border-radius:999px;background:var(--surface);
+border:1px solid var(--border);color:var(--text-dim)}
+.chip.q{background:var(--accent);border-color:var(--accent);color:var(--on-accent);
+font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.68rem}
+.tiempo{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--text-dim);
+background:transparent;border:1px dashed var(--border-2);border-radius:999px;
+padding:.1rem .3rem .1rem .7rem}
+.tiempo input{width:3.4rem;padding:.2rem .35rem;border:1px solid var(--border-2);
+border-radius:999px;background:var(--surface);color:var(--text);
+font:700 .76rem var(--sans);text-align:center}
+.tiempo input::-webkit-outer-spin-button,.tiempo input::-webkit-inner-spin-button{
+-webkit-appearance:none;margin:0}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:.89rem}
+.formula{overflow-x:auto;margin:1.3rem 0;padding:.9rem 1rem;text-align:center;
+border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0}
+.formula math{font-size:1.15rem;font-family:"Latin Modern Math","STIX Two Math","Cambria Math",var(--serif)}
+.tabla{overflow-x:auto;margin:1.3rem 0;-webkit-overflow-scrolling:touch;
+border:1px solid var(--border);border-radius:12px;background-color:var(--surface);
+background-repeat:no-repeat;
+background-size:2.4rem 100%,2.4rem 100%,.9rem 100%,.9rem 100%;
+background-position:0 0,100% 0,0 0,100% 0;
+background-attachment:local,local,scroll,scroll;
+background-image:
+linear-gradient(to right,var(--surface) 30%,rgba(0,0,0,0)),
+linear-gradient(to left,var(--surface) 30%,rgba(0,0,0,0)),
+radial-gradient(farthest-side at 0 50%,var(--shadow-edge),rgba(0,0,0,0)),
+radial-gradient(farthest-side at 100% 50%,var(--shadow-edge),rgba(0,0,0,0))}
+th,td{border-bottom:1px solid var(--border);padding:.55rem .7rem;text-align:left;
+vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{background:var(--surface-2);color:var(--text-dim);font-size:.68rem;font-weight:700;
+text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.caja{position:relative;margin:1.3rem 0;border-radius:12px;overflow:hidden;
+border:1px solid var(--border);box-shadow:var(--shadow)}
+.caja pre{margin:0;overflow-x:auto;-webkit-overflow-scrolling:touch;
+padding:2.1rem .95rem .95rem;font:.8rem/1.55 var(--mono)}
+.caja::before{content:attr(data-lang);position:absolute;top:0;left:0;z-index:1;
+font:700 .6rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:.6rem .85rem}
+.caja.codigo,.caja.salida{background:#1A1416;border-color:#2B2226;color:#F4F1EE}
+.caja.codigo::before{color:#D9A567}
+.caja.salida::before{color:#8FBF9F}
+.caja.salida pre{color:#DDE4DD}
+.caja.figura{background:var(--surface-2)}
+.caja.figura::before{color:var(--text-dim)}
+.caja.figura pre{font-size:.72rem;color:var(--text)}
+.copiar{position:absolute;top:.42rem;right:.45rem;z-index:2;font:600 .66rem var(--sans);
+padding:.26rem .6rem;border-radius:8px;border:1px solid rgba(244,241,238,.22);
+background:rgba(244,241,238,.08);color:#E6DFD9;cursor:pointer;opacity:0;transition:opacity .18s}
+.caja:hover .copiar,.copiar:focus-visible{opacity:1}
+.caja.figura .copiar{border-color:var(--border);background:var(--surface);color:var(--text-dim)}
+@media (hover:none){.copiar{opacity:.75}}
+code{background:var(--surface-2);border:1px solid var(--border);border-radius:5px;
+padding:.03rem .24rem;font:.84em var(--mono)}
+pre code{background:none;border:0;padding:0;font-size:1em}
+blockquote{border-left:2px solid var(--gold);background:var(--surface-2);
+border-radius:0 12px 12px 0;margin:1.3rem 0;padding:.75rem 1rem;color:var(--text-dim)}
+blockquote p:first-child{margin-top:0}
+blockquote p:last-child{margin-bottom:0}
+ul,ol{padding-left:1.35rem}
+li{margin:.3rem 0}
+hr{border:0;border-top:1px solid var(--border);margin:2.2rem 0}
+img{max-width:100%}
+details.spoiler{position:relative;border:1px solid var(--border);border-radius:var(--r);
+background:var(--surface-2);margin:1.8rem 0;overflow:hidden;box-shadow:var(--shadow);
+scroll-margin-top:7rem}
+details.spoiler::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;
+border-radius:14px 0 0 14px;background:linear-gradient(180deg,var(--accent),var(--gold))}
+details.spoiler>summary{cursor:pointer;list-style:none;padding:.9rem 1.05rem;
+font-family:var(--serif);font-weight:600;font-size:1rem;color:var(--text);
+display:flex;gap:.6rem;align-items:center}
+details.spoiler>summary::-webkit-details-marker{display:none}
+details.spoiler>summary::after{content:"\25BE";margin-left:auto;color:var(--accent);
+font-size:.85rem;transition:transform .22s}
+details.spoiler[open]>summary{border-bottom:1px solid var(--border)}
+details.spoiler[open]>summary::after{transform:rotate(180deg)}
+details.spoiler .cuerpo{padding:.2rem 1.05rem 1rem;animation:aparece .25s ease}
+@keyframes aparece{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
 
-  .card{
-    position:relative;display:block;
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:1.15rem 1.25rem;
-    text-decoration:none;color:inherit;
-    box-shadow:var(--shadow);
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-  .card::before{
-    content:"";position:absolute;inset:0 auto 0 0;width:3px;
-    border-radius:14px 0 0 14px;
-    background:linear-gradient(180deg,var(--accent),var(--gold));
-    opacity:0;transition:opacity .18s ease;
-  }
-  a.card:hover,a.card:focus-visible{
-    transform:translateY(-2px);
-    box-shadow:var(--shadow-lift);
-    border-color:var(--accent);
-  }
-  a.card:hover::before,a.card:focus-visible::before{opacity:1}
-  a.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.quiz{margin:1.7rem 0;border:1px solid var(--border);border-radius:var(--r);
+background:var(--surface-2);padding:1rem 1.05rem 1.1rem}
+.quiz-cab{display:flex;align-items:center;gap:.8rem;margin-bottom:.2rem}
+.avance{font-size:.72rem;font-weight:600;letter-spacing:.03em;color:var(--text-dim);
+white-space:nowrap}
+.quiz-prog{flex:1;height:4px;border-radius:999px;background:var(--surface-3);overflow:hidden}
+.quiz-prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
+.pregunta{border:0;margin:0;padding:1.2rem 0 .5rem;border-top:1px solid var(--border);min-width:0}
+.pregunta:first-of-type{border-top:0}
+.pregunta legend{font-weight:600;font-size:.96rem;padding:0;display:flex;width:100%;
+gap:.65rem;align-items:flex-start;line-height:1.5}
+.pregunta legend .txt{min-width:0}
+.pregunta .num{flex:none;display:grid;place-items:center;background:var(--accent);
+color:var(--on-accent);width:1.6rem;height:1.6rem;border-radius:999px;
+font:600 .74rem var(--sans);margin-top:.15rem}
+.opcion{margin:.45rem 0}
+.opcion input{position:absolute;width:1px;height:1px;opacity:0;margin:0}
+.opcion label{display:flex;gap:.65rem;align-items:flex-start;cursor:pointer;font-size:.92rem;
+padding:.6rem .8rem;border:1px solid var(--border);border-radius:12px;background:var(--surface);
+transition:border-color .15s ease,background .15s ease,transform .15s ease}
+.opcion label b{flex:none;width:1.55rem;height:1.55rem;border-radius:999px;
+background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);
+display:grid;place-items:center;font-size:.7rem;font-weight:700}
+.opcion label:hover{border-color:var(--accent);transform:translateX(2px)}
+.opcion input:checked+label{border-color:var(--accent);background:var(--accent-soft)}
+.opcion input:checked+label b{background:var(--accent);border-color:var(--accent);
+color:var(--on-accent)}
+.opcion input:focus-visible+label{outline:2px solid var(--accent);outline-offset:3px}
+.opcion.correcta input+label{border-color:var(--ok);background:var(--ok-soft);
+animation:aparece .3s ease}
+.opcion.correcta input+label b{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.opcion.errada input+label{border-color:var(--mal);background:var(--mal-soft)}
+.opcion.errada input+label b{background:var(--mal);border-color:var(--mal);color:var(--surface)}
+.explicacion{margin:.65rem 0 .2rem;padding:.7rem .95rem;background:var(--surface);
+border:1px solid var(--border);border-left:2px solid var(--gold);border-radius:0 12px 12px 0;
+font-size:.87rem;color:var(--text-dim);animation:aparece .3s ease}
+.quiz-barra{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:1.4rem;
+padding-top:1.1rem;border-top:1px solid var(--border)}
+button.calificar,button.reiniciar{font:600 .86rem var(--sans);letter-spacing:.02em;
+padding:.66rem 1.5rem;border-radius:999px;cursor:pointer;
+transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,color .18s ease}
+button.calificar{background:var(--accent);color:var(--on-accent);border:1px solid var(--accent);
+box-shadow:var(--shadow)}
+button.calificar:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+button.reiniciar{background:var(--surface);color:var(--text-dim);border:1px solid var(--border)}
+button.reiniciar:hover{border-color:var(--accent);color:var(--accent)}
+.marcador{margin-left:auto;font-family:var(--serif);font-weight:600;font-size:1.05rem;
+color:var(--accent);white-space:nowrap}
+footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);
+font-size:.84rem;color:var(--text-dim)}
+footer b{color:var(--text);font-weight:600}
+footer p{margin:.4rem 0}
+.tarjetas{list-style:none;display:grid;gap:.85rem;margin:1.4rem 0 0;padding:0}
+.card-u{position:relative;display:flex;flex-direction:column;gap:.35rem;background:var(--surface);
+border:1px solid var(--border);border-radius:var(--r);padding:1.15rem 1.25rem 1.2rem;
+box-shadow:var(--shadow);text-decoration:none;color:inherit;overflow:hidden;
+transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.card-u::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;
+border-radius:14px 0 0 14px;background:linear-gradient(180deg,var(--accent),var(--gold));
+opacity:0;transition:opacity .18s ease}
+a.card-u:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:var(--accent)}
+a.card-u:hover::before{opacity:1}
+.card-u.pronto{opacity:.62;box-shadow:none;background:transparent;border-style:dashed}
+.fila-u{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap}
+.card-u .n{font-family:var(--mono);font-size:.85rem;font-weight:600;letter-spacing:.02em;
+color:var(--accent)}
+.card-u.pronto .n{color:var(--text-dim)}
+.card-u h2{font-size:1.16rem;margin:0}
+.card-u .pills{margin:.55rem 0 0}
+.card-u .ir{margin-top:.75rem;font-size:.84rem;font-weight:600;color:var(--accent)}
+.card-u .ir span{display:inline-block;transition:transform .18s ease}
+a.card-u:hover .ir span{transform:translateX(3px)}
+.card-u.pronto .ir{color:var(--text-dim)}
+.nota:empty{display:none}
+@media (max-width:520px){
+body{font-size:16px}
+.wrap{padding:1.4rem 1rem 3.5rem}
+.topbar .fila,nav.saltos{padding-left:1rem;padding-right:1rem}
+/* el numero pasa a renglon propio: el titulo se queda con todo el ancho */
+.hero-top{display:block;margin-top:1rem}
+.unum{display:flex;align-items:baseline;gap:.6rem;margin-bottom:.5rem}
+.unum small{margin:0}
+section.bloque{padding:1.15rem 1rem 1.35rem}
+.cab{gap:.75rem}
+.caja pre{font-size:.72rem}
+.marcador{margin-left:0}
+.opcion label{font-size:.9rem}
+}
+@media (prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+*{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+transition-duration:.001ms !important}
+a.card-u:hover,.ruta:hover,ol.sesiones li:hover{transform:none}
+}
 
-  .card.pending{opacity:.62;box-shadow:none;background:transparent;border-style:dashed}
+.wrap{position:relative}
+.flotante{position:absolute;top:1.75rem;right:1.25rem;z-index:5}
+.lockup{display:inline-flex;align-items:center;justify-content:center;background:#FFFFFF;
+border:1px solid var(--border);border-radius:14px;padding:.7rem .95rem;box-shadow:var(--shadow)}
+.lockup img{display:block;width:74px;height:auto}
+.eyebrow{margin:1.5rem 0 0;font-size:.7rem;font-weight:600;letter-spacing:.14em;
+text-transform:uppercase;color:var(--text-dim)}
+.byline{margin:.85rem 0 0;color:var(--text-dim);font-size:1rem}
+.byline strong{color:var(--text);font-weight:600}
+.divider{height:2px;border:0;margin:2.5rem 0 2rem;background:var(--hair);opacity:.85;
+border-radius:2px}
 
-  .row{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
-  .tag{
-    font-family:var(--mono);font-size:.78rem;font-weight:600;
-    color:var(--accent);letter-spacing:.02em;
-  }
-  .title{font-family:var(--serif);font-size:1.16rem;font-weight:600;letter-spacing:-.01em}
-  .meta{
-    margin:.5rem 0 0;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;
-    color:var(--text-dim);font-size:.86rem;
-  }
-  .dot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.5}
-  .pill{
-    margin-left:auto;flex-shrink:0;
-    font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-    padding:.24rem .6rem;border-radius:999px;
-    background:var(--accent-soft);color:var(--accent);
-    border:1px solid var(--border);
-  }
-  .card.pending .pill{background:transparent;color:var(--text-dim)}
-  .go{color:var(--accent);font-weight:600;font-size:.86rem}
-  .go span{display:inline-block;transition:transform .18s ease}
-  a.card:hover .go span{transform:translateX(3px)}
-
-  footer{
-    margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);
-    color:var(--text-dim);font-size:.84rem;
-  }
-  footer p{margin:.4rem 0}
-
-  /* En pantallas angostas: clave y estado en la primera linea, titulo debajo */
-  @media (max-width:560px){
-    .row{align-items:center}
-    .title{flex-basis:100%;order:2;margin-top:.15rem}
-    .pill{order:1}
-  }
-
-  @media (prefers-reduced-motion:reduce){
-    *{transition:none!important;animation:none!important}
-    a.card:hover{transform:none}
-  }
+.secciones{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));
+gap:.85rem;margin:0 0 2.2rem}
+.secbtn{position:relative;overflow:hidden;display:block;text-align:left;font:inherit;color:inherit;
+cursor:pointer;border:1px solid var(--border);background:var(--surface);border-radius:var(--r);
+padding:1.1rem 1.2rem;box-shadow:var(--shadow);
+transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.secbtn::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;border-radius:14px 0 0 14px;
+background:linear-gradient(180deg,var(--accent),var(--gold));opacity:0;transition:opacity .18s ease}
+.secbtn .t{display:block;font-family:var(--serif);font-size:1.35rem;font-weight:600;
+letter-spacing:-.02em}
+.secbtn .d{display:block;font-size:.82rem;color:var(--text-dim);line-height:1.45;margin:.2rem 0 .6rem}
+.secbtn .c{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.03em;
+padding:.2rem .62rem;border-radius:999px;background:var(--surface-2);
+border:1px solid var(--border);color:var(--text-dim)}
+.secbtn:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shadow-lift);
+border-color:var(--accent)}
+.secbtn:hover:not(:disabled)::before{opacity:1}
+.secbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);
+box-shadow:var(--shadow-lift)}
+.secbtn[aria-pressed="true"]::before{opacity:1}
+.secbtn[aria-pressed="true"] .t{color:var(--accent)}
+.secbtn:disabled{cursor:not-allowed;opacity:.55;box-shadow:none;background:transparent;
+border-style:dashed}
+h2.rotulo{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:var(--text-dim);margin:0 0 1rem}
+.card-e{position:relative;display:block;overflow:hidden;background:var(--surface);
+border:1px solid var(--border);border-radius:var(--r);padding:1.15rem 1.25rem;
+text-decoration:none;color:inherit;box-shadow:var(--shadow);
+transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.card-e::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;
+border-radius:14px 0 0 14px;background:linear-gradient(180deg,var(--accent),var(--gold));
+opacity:0;transition:opacity .18s ease}
+a.card-e:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:var(--accent)}
+a.card-e:hover::before{opacity:1}
+.card-e.pendiente{opacity:.62;box-shadow:none;background:transparent;border-style:dashed}
+.fila-e{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+.tag{font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--accent);
+letter-spacing:.02em}
+.card-e.pendiente .tag{color:var(--text-dim)}
+/* el titulo se encoge en vez de empujar el estado a un renglon propio */
+.fila-e .title{flex:1 1 0;min-width:0;font-family:var(--serif);font-size:1.16rem;
+font-weight:600;letter-spacing:-.01em}
+.estado{margin-left:auto;flex:none;font-size:.7rem;font-weight:600;letter-spacing:.06em;
+text-transform:uppercase;padding:.24rem .6rem;border-radius:999px;background:var(--accent-soft);
+color:var(--accent);border:1px solid var(--border)}
+.card-e.pendiente .estado{background:transparent;color:var(--text-dim)}
+.meta-e{margin:.5rem 0 0;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;
+color:var(--text-dim);font-size:.86rem}
+.dot{flex:none;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.5}
+.go{color:var(--accent);font-weight:600;font-size:.86rem}
+.go span{display:inline-block;transition:transform .18s ease}
+a.card-e:hover .go span{transform:translateX(3px)}
+@media (max-width:560px){
+.fila-e{align-items:center}
+.fila-e .title{flex-basis:100%;order:2;margin-top:.15rem}
+.estado{order:1}
+}
+@media (prefers-reduced-motion:reduce){a.card-e:hover,.secbtn:hover{transform:none}}
 </style>
-</head>
-<body>
-<main class="wrap">
+<script>try{var t=localStorage.getItem('guia-tema');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head><body>
+<div class="wrap">
+<div class="flotante"><div class="acciones"><button type="button" id="tema" class="icono" aria-label="Cambiar tema">&#9790;</button></div></div>
+<header>
+<div class="lockup"><img src="data:image/png;base64,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" alt="INFOTEC" width="168" height="147"></div>
+<p class="eyebrow">Maestría en Ciencia de Datos e Información · 2026-2</p>
+<h1>Seminario de Proyecto I</h1>
+<p class="byline"><strong>Bryan Rodríguez Abarca</strong><br>Entregas del curso, publicadas para la coevaluación entre compañeros.</p>
+</header>
+<hr class="divider">
+<div class="secciones" role="group" aria-label="Qué quieres ver">
+<button type="button" class="secbtn" data-sec="apuntes" aria-controls="apuntes" aria-pressed="false" disabled><span class="t">Apuntes</span><span class="d">Guías de estudio por unidad, con su tiempo y su quiz.</span><span class="c">Sin apuntes todavía</span></button>
+<button type="button" class="secbtn" data-sec="entregables" aria-controls="entregables" aria-pressed="false"><span class="t">Entregables</span><span class="d">Los PDF que entregué, conforme vence cada actividad.</span><span class="c">1 publicada · 4 programadas</span></button>
+</div>
+<section id="apuntes"><h2 class="rotulo">Apuntes por unidad</h2>
+<ul class="tarjetas">
+<li><div class="card-u pronto">
+<div class="fila-u"><span class="n">01</span><h2>Tema y problemática de investigación</h2></div>
+<div class="pills"></div>
+<span class="ir">Próximamente</span></div></li>
+<li><div class="card-u pronto">
+<div class="fila-u"><span class="n">02</span><h2>Planteamiento del problema</h2></div>
+<div class="pills"></div>
+<span class="ir">Próximamente</span></div></li>
+<li><div class="card-u pronto">
+<div class="fila-u"><span class="n">03</span><h2>Constructo de investigación</h2></div>
+<div class="pills"></div>
+<span class="ir">Próximamente</span></div></li>
+<li><div class="card-u pronto">
+<div class="fila-u"><span class="n">04</span><h2>Base de datos</h2></div>
+<div class="pills"></div>
+<span class="ir">Próximamente</span></div></li>
+</ul></section>
+<section id="entregables"><h2 class="rotulo">Entregables</h2>
+<ul class="tarjetas">
+<li><a class="card-e" href="1A_Bryan_Rodriguez.pdf">
+<div class="fila-e"><span class="tag">1A</span><span class="title">Proyecto integrador: Tema, problema y planteamiento</span><span class="estado">Publicada</span></div>
+<p class="meta-e"><span>Unidad 1</span><span class="dot"></span><span>PDF · 13 páginas</span><span class="dot"></span><span class="go">Abrir <span>&#8594;</span></span></p></a></li>
+<li><div class="card-e pendiente">
+<div class="fila-e"><span class="tag">2A</span><span class="title">Actividad aplicada: Fuentes de información y formato APA</span><span class="estado">Programada</span></div>
+<p class="meta-e"><span>Unidad 2</span><span class="dot"></span><span>vence el 6 de septiembre</span></p></div></li>
+<li><div class="card-e pendiente">
+<div class="fila-e"><span class="tag">3A</span><span class="title">Proyecto integrador: Constructo de investigación</span><span class="estado">Programada</span></div>
+<p class="meta-e"><span>Unidad 3</span><span class="dot"></span><span>vence el 4 de octubre</span></p></div></li>
+<li><div class="card-e pendiente">
+<div class="fila-e"><span class="tag">4A</span><span class="title">Evidencia de creación de la base de datos</span><span class="estado">Programada</span></div>
+<p class="meta-e"><span>Unidad 4</span><span class="dot"></span><span>vence el 18 de octubre</span></p></div></li>
+<li><div class="card-e pendiente">
+<div class="fila-e"><span class="tag">4B</span><span class="title">Presentación final del protocolo de investigación</span><span class="estado">Programada</span></div>
+<p class="meta-e"><span>Unidad 4</span><span class="dot"></span><span>vence el 22 de noviembre</span></p></div></li>
+</ul></section>
+<footer><p><b>Bryan Rodríguez Abarca</b> · MCDI · INFOTEC 2026-2</p><p>Sitio personal de estudio. El logotipo de INFOTEC identifica a la institución donde se cursa el programa; este sitio no es un canal oficial del centro.</p>
+<p>Páginas autocontenidas: abren sin internet y no piden nada a ningún servidor. Lo que anotes (tiempo real, mejor puntaje, tema) se queda en este navegador.</p>
+<p>Publicado en vryahn.github.io/seminario_proyecto_1 · generado por <code>scripts/build_guia_html.py</code>.</p></footer>
+</div>
+<script>
+function temaActual(){
+  var t=document.documentElement.getAttribute('data-theme');
+  if(t) return t;
+  return matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+}
+function pintaTema(){
+  var b=document.getElementById('tema');
+  if(!b) return;
+  var oscuro=temaActual()==='dark';
+  b.textContent=oscuro?'\u2600':'\u263D';
+  b.setAttribute('aria-label',oscuro?'Cambiar a tema claro':'Cambiar a tema oscuro');
+  b.setAttribute('title',b.getAttribute('aria-label'));
+}
+function cambiaTema(){
+  var nuevo=temaActual()==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',nuevo);
+  guarda('guia-tema',nuevo);
+  pintaTema();
+}
+function guardado(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function guarda(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function borra(k){try{localStorage.removeItem(k);}catch(e){}}
+function dias(iso){
+  var hoy=new Date();hoy.setHours(0,0,0,0);
+  return Math.round((new Date(iso+'T00:00:00')-hoy)/864e5);
+}
+function pintaVencimientos(){
+  document.querySelectorAll('[data-iso]').forEach(function(e){
+    var n=dias(e.getAttribute('data-iso')),txt;
+    if(n>1) txt='faltan '+n+' d\u00edas';
+    else if(n===1) txt='es ma\u00f1ana';
+    else if(n===0) txt='es hoy';
+    else txt='venci\u00f3 hace '+(-n)+' d\u00edas';
+    e.querySelector('.cuenta').textContent=txt;
+    e.classList.add(n<=3?'urgente':'ok');
+  });
+}
 
-  <header>
-    <div class="lockup"><img src="infotec.png" alt="INFOTEC" width="168" height="147"></div>
-    <p class="eyebrow">Maestría en Ciencia de Datos e Información · 2026-2</p>
-    <h1>Seminario de Proyecto&nbsp;I</h1>
-    <p class="byline"><strong>Bryan Rodríguez Abarca</strong><br>
-    Entregas del curso, publicadas para la coevaluación entre compañeros.</p>
-  </header>
+(function(){
+  var d=document;
+  d.getElementById('tema').addEventListener('click',cambiaTema);
+  pintaTema();pintaVencimientos();
 
-  <hr class="divider">
+  // Las secciones solo se ocultan desde aqui: sin JS se ven las dos.
+  var btns=[].slice.call(d.querySelectorAll('.secbtn'));
+  var KEY='guia-seminario-proyecto-I-seccion',DEF='entregables';
+  function valida(s){
+    for(var i=0;i<btns.length;i++)
+      if(btns[i].getAttribute('data-sec')===s&&!btns[i].disabled) return s;
+    return '';
+  }
+  function pon(s){
+    if(!s) return;
+    btns.forEach(function(b){
+      var sec=b.getAttribute('data-sec'),mia=sec===s;
+      b.setAttribute('aria-pressed',mia?'true':'false');
+      var e=d.getElementById(sec);
+      if(e) e.hidden=!mia;
+    });
+    guarda(KEY,s);
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      var s=b.getAttribute('data-sec');
+      pon(s);
+      if(history.replaceState) history.replaceState(null,'','#'+s);
+      else location.hash=s;
+    });
+  });
+  addEventListener('hashchange',function(){pon(valida(location.hash.slice(1)));});
+  pon(valida(location.hash.slice(1))||valida(guardado(KEY))||valida(DEF));
 
-  <h2>Entregas</h2>
-  <ul>
-
-    <li>
-      <a class="card" href="1A_Bryan_Rodriguez.pdf">
-        <div class="row">
-          <span class="tag">1A</span>
-          <span class="title">Tema, problema y planteamiento</span>
-          <span class="pill">Publicada</span>
-        </div>
-        <p class="meta">
-          <span>Unidad 1</span><span class="dot"></span>
-          <span>PDF · 13 páginas</span><span class="dot"></span>
-          <span class="go">Abrir <span>&rarr;</span></span>
-        </p>
-      </a>
-    </li>
-
-    <li>
-      <div class="card pending">
-        <div class="row">
-          <span class="tag">2A</span>
-          <span class="title">Fuentes de información y formato APA</span>
-          <span class="pill">Programada</span>
-        </div>
-        <p class="meta"><span>Unidad 2</span><span class="dot"></span><span>6 de septiembre</span></p>
-      </div>
-    </li>
-
-    <li>
-      <div class="card pending">
-        <div class="row">
-          <span class="tag">3A</span>
-          <span class="title">Constructo de investigación</span>
-          <span class="pill">Programada</span>
-        </div>
-        <p class="meta"><span>Unidad 3</span><span class="dot"></span><span>4 de octubre</span></p>
-      </div>
-    </li>
-
-    <li>
-      <div class="card pending">
-        <div class="row">
-          <span class="tag">4A</span>
-          <span class="title">Evidencia de creación de la base de datos</span>
-          <span class="pill">Programada</span>
-        </div>
-        <p class="meta"><span>Unidad 4</span><span class="dot"></span><span>18 de octubre</span></p>
-      </div>
-    </li>
-
-    <li>
-      <div class="card pending">
-        <div class="row">
-          <span class="tag">4B</span>
-          <span class="title">Presentación final del protocolo</span>
-          <span class="pill">Programada</span>
-        </div>
-        <p class="meta"><span>Unidad 4</span><span class="dot"></span><span>22 de noviembre</span></p>
-      </div>
-    </li>
-
-  </ul>
-
-  <footer>
-    <p>Sitio personal de entregas académicas. El logotipo de INFOTEC identifica a la
-    institución donde se cursa el programa; este sitio no es un canal oficial del centro.</p>
-  </footer>
-
-</main>
-</body>
-</html>
+  d.querySelectorAll('[data-clave]').forEach(function(c){
+    var v=guardado('guia-'+c.getAttribute('data-clave')+'-mejor');
+    if(!v) return;
+    var e=c.querySelector('.mejor');
+    e.hidden=false;
+    e.querySelector('b').textContent=v.replace('/',' de ');
+  });
+})();
+</script>
+</body></html>
