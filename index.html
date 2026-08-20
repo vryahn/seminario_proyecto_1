@@ -164,6 +164,7 @@ color:var(--text-dim)}
 .ruta .t{display:block;font-family:var(--serif);font-size:1.6rem;font-weight:600;
 letter-spacing:-.02em;margin:.15rem 0 .2rem}
 .ruta .d{display:block;font-size:.78rem;color:var(--text-dim);line-height:1.45}
+.ruta .acum{display:block;font-size:.78rem;color:var(--text);line-height:1.45;margin:0 0 .2rem}
 .ruta:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:var(--accent)}
 .ruta:hover::before{opacity:1}
 .ruta[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);
@@ -183,14 +184,31 @@ details.nota[open]>summary::before{transform:rotate(90deg)}
 .plan{margin:0 0 2.4rem}
 .plan h2{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.14em;
 text-transform:uppercase;color:var(--text-dim);margin:0 0 1rem}
+details.plan>summary{cursor:pointer;list-style:none;display:flex;gap:.55rem;align-items:baseline;
+flex-wrap:wrap}
+details.plan>summary::-webkit-details-marker{display:none}
+details.plan>summary::before{content:"\203A";font-weight:700;color:var(--text-dim);
+display:inline-block;transition:transform .2s}
+details.plan[open]>summary::before{transform:rotate(90deg)}
+details.plan[open]>summary{margin-bottom:1rem}
+details.plan>summary h2{margin:0}
+details.plan>summary .nota{display:inline;background:none;border:0;border-radius:0;
+padding:0;margin:0;font-size:.76rem}
 ol.sesiones{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
-ol.sesiones li{display:flex;gap:.9rem;align-items:center;background:var(--surface);
-border:1px solid var(--border);border-radius:var(--r);padding:.8rem .95rem;
-box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
-ol.sesiones li:hover{transform:translateY(-2px);border-color:var(--accent);
-box-shadow:var(--shadow-lift)}
-ol.sesiones .n{flex:none;width:2.1rem;height:2.1rem;border-radius:999px;display:grid;
-place-items:center;font-family:var(--serif);font-size:.95rem;font-weight:600;
+ol.sesiones li{background:var(--surface);border:1px solid var(--border);
+border-radius:var(--r);box-shadow:var(--shadow);
+transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+a.sesion{display:flex;gap:.9rem;align-items:center;padding:.8rem .95rem;
+text-decoration:none;color:inherit}
+ol.sesiones li:hover,ol.sesiones li:focus-within{transform:translateY(-2px);
+border-color:var(--accent);box-shadow:var(--shadow-lift)}
+ol.sesiones li.actual{border-color:var(--accent);background:var(--accent-soft)}
+ol.sesiones li.hecha .n{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+ol.sesiones li.hecha .n::after{content:"\2713";position:absolute;right:-.2rem;bottom:-.2rem;
+font-size:.62rem;line-height:1;padding:.08rem .12rem;border-radius:999px;
+background:var(--surface);border:1px solid var(--ok)}
+ol.sesiones .n{position:relative;flex:none;width:2.1rem;height:2.1rem;border-radius:999px;
+display:grid;place-items:center;font-family:var(--serif);font-size:.95rem;font-weight:600;
 background:var(--accent-soft);color:var(--accent);border:1px solid var(--border)}
 ol.sesiones .dur{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
 ol.sesiones .det{display:block;font-size:.82rem;color:var(--text-dim);line-height:1.45}
@@ -298,7 +316,6 @@ margin:.3rem 0 0 .2rem;cursor:pointer}
 ol.sesiones li .fecha{margin-left:auto;flex:none;font:600 .74rem var(--sans);color:var(--text-dim);
 white-space:nowrap}
 ol.sesiones li.hoy .fecha{color:var(--accent)}
-ol.sesiones li.pasada{opacity:.6}
 .repaso-cta{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
 .repaso-cta .nota{margin:0}
 .caja.codigo,.caja.salida{background:#1A1416;border-color:#2B2226;color:#F4F1EE}
@@ -609,6 +626,11 @@ function pintaVencimientos(){
 
   // Las secciones solo se ocultan desde aqui: sin JS se ven las dos.
   var btns=[].slice.call(d.querySelectorAll('.secbtn'));
+  // Con un solo lado disponible el selector es ruido: se oculta.
+  if(btns.filter(function(b){return !b.disabled;}).length<2){
+    var cont=d.querySelector('.secciones');
+    if(cont) cont.style.display='none';
+  }
   var KEY='guia-seminario-proyecto-I-seccion',DEF='entregables';
   function valida(s){
     for(var i=0;i<btns.length;i++)
