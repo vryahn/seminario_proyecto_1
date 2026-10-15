@@ -1,0 +1,75 @@
+name: Verify GitHub Pages delivery
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Compare Pages with the selected commit
+        env:
+          REPOSITORY: ${{ github.repository }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import os
+          from html.parser import HTMLParser
+          from urllib.request import urlopen
+
+          files = (
+              "index.html",
+              "1A_Bryan_Rodriguez.pdf",
+              "entregas/2A_Bryan_Rodriguez.pdf",
+              "entregas/3A_Bryan_Rodriguez.pdf",
+              "entregas/4A_Bryan_Rodriguez.pdf",
+              "entregas/5A_Rodriguez_Bryan.pdf",
+          )
+          repository = os.environ["REPOSITORY"]
+          commit = os.environ["COMMIT_SHA"]
+          raw_base = f"https://raw.githubusercontent.com/{repository}/{commit}/"
+          pages_base = "https://vryahn.github.io/seminario_proyecto_1/"
+
+          class Links(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.hrefs = set()
+
+              def handle_starttag(self, tag, attrs):
+                  if tag == "a":
+                      self.hrefs.update(value for name, value in attrs if name == "href" and value)
+
+          def fetch(url):
+              with urlopen(url, timeout=15) as response:
+                  body = response.read()
+                  return response.status, response.headers.get_content_type(), body
+
+          expected_links = set(files[1:])
+          for path in files:
+              raw_status, raw_type, raw = fetch(raw_base + path)
+              page_status, page_type, page = fetch(pages_base + path)
+              if raw_status != 200 or page_status != 200:
+                  raise SystemExit(f"FAIL {path}: raw HTTP {raw_status}, Pages HTTP {page_status}")
+              raw_hash = hashlib.sha256(raw).hexdigest()
+              page_hash = hashlib.sha256(page).hexdigest()
+              if raw != page or raw_hash != page_hash:
+                  raise SystemExit(f"FAIL {path}: Pages differs from commit {commit}")
+              if path.endswith(".pdf"):
+                  if raw_type != "application/pdf" or page_type != "application/pdf":
+                      raise SystemExit(f"FAIL {path}: PDF content type raw={raw_type}, Pages={page_type}")
+                  if not raw.startswith(b"%PDF-") or not page.startswith(b"%PDF-"):
+                      raise SystemExit(f"FAIL {path}: missing PDF signature")
+              if path == "index.html":
+                  links = Links()
+                  links.feed(page.decode("utf-8"))
+                  missing = expected_links - links.hrefs
+                  if missing:
+                      raise SystemExit(f"FAIL index.html: missing PDF links {sorted(missing)}")
+              print(f"PASS {path}: HTTP 200, {len(page)} bytes, sha256={page_hash}, content-type={page_type}")
+          print(f"PASS all six Pages files match {repository}@{commit}")
+          PY
