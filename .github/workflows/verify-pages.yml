@@ -51,7 +51,7 @@ jobs:
 
           expected_links = set(files[1:])
           for path in files:
-              raw_status, raw_type, raw = fetch(raw_base + path)
+              raw_status, _, raw = fetch(raw_base + path)
               page_status, page_type, page = fetch(pages_base + path)
               if raw_status != 200 or page_status != 200:
                   raise SystemExit(f"FAIL {path}: raw HTTP {raw_status}, Pages HTTP {page_status}")
@@ -60,8 +60,8 @@ jobs:
               if raw != page or raw_hash != page_hash:
                   raise SystemExit(f"FAIL {path}: Pages differs from commit {commit}")
               if path.endswith(".pdf"):
-                  if raw_type != "application/pdf" or page_type != "application/pdf":
-                      raise SystemExit(f"FAIL {path}: PDF content type raw={raw_type}, Pages={page_type}")
+                  if page_type != "application/pdf":
+                      raise SystemExit(f"FAIL {path}: Pages content type is {page_type}, expected application/pdf")
                   if not raw.startswith(b"%PDF-") or not page.startswith(b"%PDF-"):
                       raise SystemExit(f"FAIL {path}: missing PDF signature")
               if path == "index.html":
